@@ -2,10 +2,13 @@
 ___
 ### Introduction
 
-This is the final project for CS50P (cs50's python programming course), I decided to go with this desktop application for its ease of implementation and simple concepts required to achieve the final result.
-___
+This is the final project for <mark>CS50P</mark> (cs50's python programming course), I decided to go with this desktop application for its ease of implementation and simple concepts required to achieve the final result.
 
-this is a text I want to highlight <mark> IMPORTANT TEXT </mark>
+---
+<p> Make sure you install the dependencies using the following command</p>
 
-term
-: definitio
+``` bash
+pip install -r requirements.txt
+```
+
+
