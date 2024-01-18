@@ -10,38 +10,46 @@ def generate_qr_code(data, quality, color,filename):
         color (str): The qr code fill color
         filename (str): The filename to save the qr code to
     """
-    import qrcode,os
-    cur_dir = os.getcwd()
-
-    # Create QR code instance
-    qr = qrcode.QRCode(
-        version=1,
-        error_correction=qrcode.constants.ERROR_CORRECT_L,
-        box_size=quality,
-        border=4,
-    )
-    
-    # Add data to the QR code
-    qr.add_data(data)
-    qr.make(fit=True)
-    
-    # Create an image from the QR code
-    img = qr.make_image(fill_color=color, back_color="white")
-
-    # Save the image
-    if get_os() == "Windows":
-        img.save(cur_dir+'\\'+filename+'.png')
-        os.startfile(cur_dir+'\\'+filename+'.png')
+    if data=='' and filename=='':
+        handle_error('No filename & no data was provided!')
+    elif data=='':
+        handle_error('No data was provided!')
+    elif filename=='':
+        handle_error('No filename was provided!')
     else:
-        import subprocess
-        img.save(cur_dir+'/'+filename+'.png')
-        subprocess.run(['xdg-open', cur_dir+'\\'+filename+'.png'])
+        import qrcode,os
+        cur_dir = os.getcwd()
+        qr = qrcode.QRCode(
+            version=1,
+            error_correction=qrcode.constants.ERROR_CORRECT_L,
+            box_size=quality,
+            border=4,
+        )
+        qr.add_data(data)
+        qr.make(fit=True)
+        img = qr.make_image(fill_color=color, back_color="white")
+        if get_os() == "Windows":
+            img.save(cur_dir+'\\'+filename+'.png')
+            os.startfile(cur_dir+'\\'+filename+'.png')
+        else:
+            import subprocess
+            img.save(cur_dir+'/'+filename+'.png')
+            subprocess.run(['xdg-open', cur_dir+'\\'+filename+'.png'])
 
 def get_os()->str:
     """Get the current operating system"""
     import platform
     sysm = platform.system()
     return sysm
+
+def handle_error(msg):
+    error_window = qtw.QMessageBox()
+    error_window.setMinimumSize(500,300)
+    error_window.setMaximumSize(500,300)
+    error_window.setText(msg)
+    error_window.setIcon(qtw.QMessageBox.Icon.Critical)
+    error_window.exec()
+
 def main():
     app = qtw.QApplication(sys.argv)
     app.setApplicationName("Hamza's Qr Code Gen")
@@ -103,16 +111,13 @@ class FilenameValidator(qtg.QValidator):
     """Enforce valid filenames"""
     def validate(self, string, index):
         if not string:
-            # An empty string is considered Intermediate
             return (qtg.QValidator.State.Intermediate, string, index)
         try:
-            # Check if the string is a valid filename
             if os.path.exists(string) or not os.path.basename(string):
                 state = qtg.QValidator.State.Invalid
             else:
                 state = qtg.QValidator.State.Acceptable
         except Exception:
-            # Handle exceptions that might occur during validation
             state = qtg.QValidator.State.Invalid
         return (state, string, index)
 
