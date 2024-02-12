@@ -24,17 +24,3 @@ The app features a simple interface, with multiple widgets:
 - a generate button, when clicked the data in the text area will be encoded to a qr code and saved in the same directory of the <span style="color: #2581f7">project.py</span> file, if the text area is empty a pop-up message box will appear and addresses the issue.
 - a quit button, when clicked the application exits.
 
-## Walkthrough
-### <u>*project.py* file</u>:
-
-Going through the code and explaining som functionalities<br>
-
-This class serves as the primary window on which we will place the rest of the widgets, the main code in this class goes in the constructor method.
-``` python
-class MainWindow(qtw.QWidget)
-```
-The main layout of the application is *Form Layout*, oraganizing each widget as a row in the form.
-``` python
-main_layout = qtw.QFormLayout()
-```
-
