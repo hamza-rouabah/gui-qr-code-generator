@@ -1,5 +1,4 @@
 # GUI QR CODE GENERATOR w/ Python
-#### [Video Demo](https://www.youtube.com/watch?v=K8L6KVGG-7o)
 #### Description:
 A simple <span style="color: #2581f7">GUI qr code generator</span>, implemented using <b>`PyQt6 framework`</b>, <b>`qr library`</b>,<b>`PIL library`</b>.
 
